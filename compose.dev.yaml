@@ -1,0 +1,13 @@
+# Source build of this checkout, layered on compose.yaml:
+#   ./start.sh dev     or   docker compose -f compose.yaml -f compose.dev.yaml --profile platform up --build
+# The fixed local tag keeps source builds separate from explicit registry images.
+services:
+  platform:
+    image: superagent-platform:local
+    pull_policy: never
+    build:
+      context: .
+      args:
+        LOOPFORGE_BUILD_JOBS: ${LOOPFORGE_BUILD_JOBS:-}
+    environment:
+      AGENTFLOW_ISOLATED_IMAGE: superagent-platform:local
